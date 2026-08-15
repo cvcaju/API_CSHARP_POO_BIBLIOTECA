@@ -23,6 +23,3 @@ Emprestimo emprestimo = new Emprestimo(Principe);
 
 
 
-
-
-
