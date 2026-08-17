@@ -32,18 +32,18 @@ public abstract class ItemAcervo
     {
         if (Disponibilidade)
         {
-            throw new ExcecaoDominio("Não está emprestado");
+            throw new ExcecaoDominio("Item não está emprestado.");
         }
 
         Disponibilidade = true;
     }
 
     public void MarcarComoEmprestado()
-
     {
         if (!Disponibilidade)
-
-            throw new ExcecaoDominio("Não está emprestado");
+        {
+            throw new ExcecaoDominio("Item já está emprestado.");
+        }
 
         Disponibilidade = false;
     }
