@@ -16,9 +16,9 @@ ItemAcervo Eletronica = new Revista("Eletrônica", "Senai");
 
 ItemAcervo Palavras = new Revista("Palavras Cruzadas", "Autor Desconhecido");
 
-ItemAcervo Raul = new Dvd("Rock Roll", "Raul Seixas");
+ItemAcervo Raul = new Dvd("Rock Roll", "Raul Seixas", FaixaEtaria.Livre);
 
-Emprestimo emprestimo = new Emprestimo(Principe);
+Emprestimo emprestimo = new(Principe);
 
 
 
