@@ -5,10 +5,15 @@ public abstract class ItemAcervo
     public ItemAcervo(string titulo, string autor)
     {
         if (string.IsNullOrWhiteSpace(titulo))
-
         {
             throw new ExcecaoDominio("O título é obrigatório");
         }
+        
+        if (string.IsNullOrWhiteSpace(autor))
+        {
+            throw new ExcecaoDominio("O autor é obrigatório");
+        }
+        
         Titulo = titulo;
         Autor = autor;
     }
