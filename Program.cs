@@ -16,10 +16,23 @@ ItemAcervo Eletronica = new Revista("Eletrônica", "Senai");
 
 ItemAcervo Palavras = new Revista("Palavras Cruzadas", "Autor Desconhecido");
 
-ItemAcervo Raul = new Dvd("Rock Roll", "Raul Seixas", FaixaEtaria.Livre);
+ItemAcervo Raul = new Dvd("Rock Roll", "Raul Seixas", FaixaEtaria.DezesseisAnos);
 
 Emprestimo emprestimo = new(Principe);
 
+Usuario marina = new("Marina", 15);
+
+Dvd dvd = new("Rock Roll", "Raul Seixas", FaixaEtaria.DezesseisAnos);
+
+try
+{
+    Emprestimo Emprestimo = new(marina, dvd);
+    Console.WriteLine("Empréstimo liberado.");
+}
+catch (InvalidOperationException ex)
+{
+    Console.WriteLine(ex.Message);
+}
 
 
 
