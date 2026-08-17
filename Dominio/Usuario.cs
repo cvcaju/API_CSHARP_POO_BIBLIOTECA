@@ -23,31 +23,20 @@ public class Usuario
 
     public void Emprestar(ItemAcervo item)
     {
-        if (item is null)
-        {
-            throw new ArgumentNullException(nameof(item));
-        }
+        
 
         if (_itensEmprestados.Count >= LimiteItensEmprestados)
         {
             throw new ExcecaoDominio("Usuário já atingiu o limite de 3 itens emprestados. Devolva um antes de pegar outro.");
         }
 
-        if (!item.Disponibilidade)
-        {
-            throw new ExcecaoDominio($"O item '{item.Titulo}' já está emprestado.");
-        }
-
-        item.MarcarComoEmprestado();
+         item.MarcarComoEmprestado();
         _itensEmprestados.Add(item);
     }
 
     public void Devolver(ItemAcervo item)
     {
-        if (item is null)
-        {
-            throw new ArgumentNullException(nameof(item));
-        }
+        
 
         if (!_itensEmprestados.Contains(item))
         {
