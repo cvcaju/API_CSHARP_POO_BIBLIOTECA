@@ -18,18 +18,16 @@ ItemAcervo Palavras = new Revista("Palavras Cruzadas", "Autor Desconhecido");
 
 ItemAcervo Raul = new Dvd("Rock Roll", "Raul Seixas", FaixaEtaria.DezesseisAnos);
 
-Emprestimo emprestimo = new(Principe);
-
-Usuario marina = new("Marina", 15);
+Usuario marina = new("Marina", new DateTime(2011, 1, 1));
 
 Dvd dvd = new("Rock Roll", "Raul Seixas", FaixaEtaria.DezesseisAnos);
 
 try
 {
-    Emprestimo Emprestimo = new(marina, dvd);
+    marina.Emprestar(dvd);
     Console.WriteLine("Empréstimo liberado.");
 }
-catch (InvalidOperationException ex)
+catch (ExcecaoDominio ex)
 {
     Console.WriteLine(ex.Message);
 }
