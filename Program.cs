@@ -16,10 +16,21 @@ ItemAcervo Eletronica = new Revista("Eletrônica", "Senai");
 
 ItemAcervo Palavras = new Revista("Palavras Cruzadas", "Autor Desconhecido");
 
-ItemAcervo Raul = new Dvd("Rock Roll", "Raul Seixas");
+ItemAcervo Raul = new Dvd("Rock Roll", "Raul Seixas", FaixaEtaria.DezesseisAnos);
 
-Emprestimo emprestimo = new Emprestimo(Principe);
+Usuario marina = new("Marina", new DateTime(2011, 1, 1));
 
+Dvd dvd = new("Rock Roll", "Raul Seixas", FaixaEtaria.DezesseisAnos);
+
+try
+{
+    marina.Emprestar(dvd);
+    Console.WriteLine("Empréstimo liberado.");
+}
+catch (ExcecaoDominio ex)
+{
+    Console.WriteLine(ex.Message);
+}
 
 
 

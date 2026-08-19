@@ -5,10 +5,15 @@ public abstract class ItemAcervo
     public ItemAcervo(string titulo, string autor)
     {
         if (string.IsNullOrWhiteSpace(titulo))
-
         {
             throw new ExcecaoDominio("O título é obrigatório");
         }
+        
+        if (string.IsNullOrWhiteSpace(autor))
+        {
+            throw new ExcecaoDominio("O autor é obrigatório");
+        }
+        
         Titulo = titulo;
         Autor = autor;
     }
@@ -32,18 +37,18 @@ public abstract class ItemAcervo
     {
         if (Disponibilidade)
         {
-            throw new ExcecaoDominio("Não está emprestado");
+            throw new ExcecaoDominio("Item não está emprestado.");
         }
 
         Disponibilidade = true;
     }
 
     public void MarcarComoEmprestado()
-
     {
         if (!Disponibilidade)
-
-            throw new ExcecaoDominio("Não está emprestado");
+        {
+            throw new ExcecaoDominio("Item já está emprestado.");
+        }
 
         Disponibilidade = false;
     }

@@ -5,6 +5,6 @@ public enum FaixaEtaria
     Livre,
     DozeAnos,
     QuatorzeAnos,
-    DezsesseisAnos,
-    DezoitoAnos
+    DezesseisAnos,
+    DezoitoAnos,
 }
