@@ -2,6 +2,8 @@ namespace Biblioteca.Dominio;
 
 public class Usuario
 {
+    private static int _proximoId = 1;
+    public int Id { get; }
     private const int LimiteItensEmprestados = 3;
     private readonly List<ItemAcervo> _itensEmprestados = [];
 
@@ -19,6 +21,7 @@ public class Usuario
 
         Nome = nome;
         DataNascimento = dataNascimento;
+        Id = _proximoId++;
     }
 
     public void Emprestar(ItemAcervo item)
@@ -45,5 +48,6 @@ public class Usuario
 
         _itensEmprestados.Remove(item);
         item.MarcarComoDevolvido();
+        
     }
 }
