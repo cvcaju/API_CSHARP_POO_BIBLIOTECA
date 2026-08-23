@@ -30,8 +30,44 @@ public class Usuario
             throw new ExcecaoDominio("Usuário já atingiu o limite de 3 itens emprestados. Devolva um antes de pegar outro.");
         }
 
-         item.MarcarComoEmprestado();
+        if (!item.Disponibilidade)
+        {
+            throw new ExcecaoDominio($"O item '{item.Titulo}' já está emprestado.");
+        }
+
+        if (item is Dvd dvd && CalcularIdade() < IdadeMinima(dvd.FaixaEtaria))
+        {
+            throw new ExcecaoDominio($"Empréstimo não permitido: a idade mínima para este DVD é {IdadeMinima(dvd.FaixaEtaria)} anos.");
+        }
+
+        item.MarcarComoEmprestado();
         _itensEmprestados.Add(item);
+    }
+
+    private int CalcularIdade()
+    {
+        var hoje = DateTime.Today;
+        var idade = hoje.Year - DataNascimento.Year;
+
+        if (DataNascimento.Date > hoje.AddYears(-idade))
+        {
+            idade--;
+        }
+
+        return idade;
+    }
+
+    private static int IdadeMinima(FaixaEtaria faixaEtaria)
+    {
+        return faixaEtaria switch
+        {
+            FaixaEtaria.Livre => 0,
+            FaixaEtaria.DozeAnos => 12,
+            FaixaEtaria.QuatorzeAnos => 14,
+            FaixaEtaria.DezesseisAnos => 16,
+            FaixaEtaria.DezoitoAnos => 18,
+            _ => throw new ArgumentOutOfRangeException(nameof(faixaEtaria))
+        };
     }
 
     public void Devolver(ItemAcervo item)

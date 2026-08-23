@@ -2,23 +2,25 @@ namespace Biblioteca.Dominio;
 
 public class Emprestimo
 {
-    public Usuario Usuario { get; }
+    private readonly Usuario _usuario;
+
+    public Usuario Usuario => _usuario;
     public ItemAcervo Item { get; }
-    public DateTime DataEmprestimo { get; private set; } = DateTime.Today;
+    public DateTime DataEmprestimo { get; }
     public DateTime PrazoLimite { get; }
+    public DateTime? DataDevolucao { get; private set; }
+    public decimal MultaPaga { get; private set; }
 
-    public Emprestimo(ItemAcervo item, Usuario usuario)
+    public Emprestimo(ItemAcervo item, Usuario usuario, DateTime? dataEmprestimo = null)
     {
-        item.MarcarComoEmprestado();
+        usuario.Emprestar(item);
+        _usuario = usuario;
         Item = item;
+        DataEmprestimo = dataEmprestimo?.Date ?? DateTime.Today;
         PrazoLimite = DataEmprestimo.AddDays(item.PrazoDevolucao);
-        Usuario = usuario;
-
-
-        
     }
 
-    public decimal MultaAtual => Item.CalcularMulta(QtdDiasAtrasados);
+    public decimal MultaAtual => DataDevolucao.HasValue ? MultaPaga : Item.CalcularMulta(QtdDiasAtrasados);
 
     public int QtdDiasAtrasados
     {
@@ -30,10 +32,17 @@ public class Emprestimo
         }
     }
 
-    public void RegistrarDevolucao() 
+    public decimal RegistrarDevolucao(DateTime? dataDevolucao = null)
     {
-       
-         Item.MarcarComoDevolvido();
+        if (DataDevolucao.HasValue)
+        {
+            throw new ExcecaoDominio("Empréstimo já foi devolvido.");
+        }
+
+        DataDevolucao = dataDevolucao?.Date ?? DateTime.Today;
+        MultaPaga = Item.CalcularMulta(Math.Max(0, (DataDevolucao.Value - PrazoLimite).Days));
+        _usuario.Devolver(Item);
+        return MultaPaga;
     }
 
 }
