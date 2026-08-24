@@ -26,7 +26,10 @@ public class Usuario
 
     public void Emprestar(ItemAcervo item)
     {
-        
+        if (item is Dvd dvd && CalcularIdade() < dvd.IdadeMinima)
+        {
+            throw new ExcecaoDominio($"Usuário não possui idade mínima para o DVD '{item.Titulo}'.");
+        }
 
         if (_itensEmprestados.Count >= LimiteItensEmprestados)
         {
@@ -35,6 +38,19 @@ public class Usuario
 
          item.MarcarComoEmprestado();
         _itensEmprestados.Add(item);
+    }
+
+    private int CalcularIdade()
+    {
+        var hoje = DateTime.Today;
+        var idade = hoje.Year - DataNascimento.Year;
+
+        if (DataNascimento.Date > hoje.AddYears(-idade))
+        {
+            idade--;
+        }
+
+        return idade;
     }
 
     public void Devolver(ItemAcervo item)
