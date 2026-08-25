@@ -9,6 +9,7 @@ var app = builder.Build();
 var acervo = new Acervos();
 var cadastro = new Cadastro();
 Seed.Popular(acervo, cadastro);
+var emprestimos = new List<Emprestimo>();
 
 app.MapGet("/", () => Results.Redirect("/itens"));
 
